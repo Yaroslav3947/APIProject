@@ -10,6 +10,7 @@
 #include <QNetworkAccessManager>
 
 #include "User.h"
+#include "qnetworkreply.h"
 
 class ApiManager : public QObject {
     Q_OBJECT
@@ -26,5 +27,4 @@ public:
 private:
     QNetworkAccessManager _networkAccessManager;
     QString _baseUrl = "https://frontend-test-assignment-api.abz.agency/api/v1/";
-    QString _token = "";
 };

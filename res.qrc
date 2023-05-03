@@ -1,5 +1,3 @@
 <RCC>
-    <qresource prefix="/json">
-        <file>result_get.json</file>
-    </qresource>
+    <qresource prefix="/json"/>
 </RCC>

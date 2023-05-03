@@ -1,6 +1,10 @@
 #include "User.h"
 
-User::User(int id, const QString& name, const QString& email, const QString& position, const QString& photoUrl) :
+User::User(int id,
+           const QString &name,
+           const QString &email,
+           QString &position,
+           const QString &photoUrl):
     _id(id),
     _name(name),
     _email(email),
