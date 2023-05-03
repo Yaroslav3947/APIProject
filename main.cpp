@@ -1,10 +1,9 @@
 #include <QtNetwork>
 #include <QFile>
 
-int main(int argc, char *argv[])
-{
-    QCoreApplication a(argc, argv);
+const QString RESULT_FILE_PATH = "C:/Users/Yaroslav/Documents/APITestProject/result_get.json";
 
+void downloadUsers() {
     QNetworkAccessManager manager;
 
     QNetworkRequest request;
@@ -19,7 +18,7 @@ int main(int argc, char *argv[])
     {
         QByteArray response = reply->readAll();
 
-        QFile file("C:/Users/Yaroslav/Documents/APITestProject/result_get.json");
+        QFile file(RESULT_FILE_PATH);
         QJsonDocument jsonResponse = QJsonDocument::fromJson(response);
         if (file.open(QIODevice::WriteOnly)) {
             qDebug()  << jsonResponse["users"][0]["email"].toString();
@@ -32,5 +31,13 @@ int main(int argc, char *argv[])
     }
 
     reply->deleteLater();
+}
+
+int main(int argc, char *argv[])
+{
+    QCoreApplication a(argc, argv);
+
+    downloadUsers();
+
     return 0;
 }
