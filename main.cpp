@@ -1,7 +1,10 @@
+#include "qapplication.h"
 #include <QtNetwork>
 #include <QFile>
 
 #include <ApiManager.h>
+
+#include <mainwindow.h>
 
 void callBack(QList<User> users, bool success, QString errorString) {
     if (success) {
@@ -15,12 +18,14 @@ void callBack(QList<User> users, bool success, QString errorString) {
 }
 
 int main(int argc, char *argv[]) {
-    QCoreApplication a(argc, argv);
+    QApplication a(argc, argv);
 
-    ApiManager *apiManager = new ApiManager;
+//    ApiManager *apiManager = new ApiManager;
 
-    apiManager->getUsers(1,5,callBack);
+//    apiManager->getUsers(1,5,callBack);
+    MainWindow w;
+    w.show();
 
 
-    return 0;
+    return a.exec();
 }
