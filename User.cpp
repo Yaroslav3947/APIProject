@@ -4,12 +4,14 @@ User::User(int id,
            const QString &name,
            const QString &email,
            QString &position,
+           const QString &phoneNumber,
            const QString &photoUrl):
     _id(id),
     _name(name),
     _email(email),
     _position(position),
-    _photoUrl(photoUrl) {
+    _photoUrl(photoUrl),
+    _phoneNumber(phoneNumber) {
 }
 
 int User::getId() const {
@@ -32,13 +34,18 @@ QString User::getPhotoUrl() const {
     return _photoUrl;
 }
 
+QString User::getPhoneNumber() const {
+    return _phoneNumber;
+}
+
 User User::fromJson(const QJsonObject& json) {
     int id = json["id"].toInt();
     QString name = json["name"].toString();
     QString email = json["email"].toString();
     QString position = json["position"].toString();
-    QString photoUrl = json["photo_url"].toString();
-    return User(id, name, email, position, photoUrl);
+    QString photoUrl = json["photo"].toString();
+    QString phoneNumber = json["phone"].toString();
+    return User(id, name, email, position, phoneNumber, photoUrl);
 }
 
 QJsonObject User::toJson() const {
@@ -47,7 +54,8 @@ QJsonObject User::toJson() const {
     json["name"] = _name;
     json["email"] = _email;
     json["position"] = _position;
-    json["photo_url"] = _photoUrl;
+    json["number"] = _phoneNumber;
+    json["photo"] = _photoUrl;
     return json;
 }
 

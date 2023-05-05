@@ -18,8 +18,9 @@ public:
     ApiManager(QObject* parent = nullptr);
 
     // for get
-    void getUsers(int page, int count, std::function<void(QList<User>, bool, QString)> callback);
+    QList<User> getUsers(int page, int count);
     void getPositions(std::function<void(QList<QString>, bool, QString)> callback);
+    User getUser(int id);
 
     // for post
     void registerUser(const QString &name, const QString &email, const QString &phone, int positionId, const QString &photoFilename);

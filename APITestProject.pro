@@ -12,12 +12,14 @@ CONFIG += c++17
 SOURCES += \
     ApiManager.cpp \
     User.cpp \
+    UserTable.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     ApiManager.h \
     User.h \
+    UserTable.h \
     mainwindow.h
 
 FORMS += \

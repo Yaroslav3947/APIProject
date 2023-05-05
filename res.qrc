@@ -1,3 +1,4 @@
 <RCC>
     <qresource prefix="/json"/>
+    <qresource prefix="/photos"/>
 </RCC>

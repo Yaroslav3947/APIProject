@@ -3,7 +3,7 @@
 ApiManager::ApiManager(QObject* parent) : QObject(parent) {
 }
 
-void ApiManager::getUsers(int page, int count, std::function<void(QList<User>, bool, QString)> callback) {
+QList<User> ApiManager::getUsers(int page, int count) {
     QString apiUrl = _baseUrl + "users?page=" + QString::number(page) + "&count=" + QString::number(count);
     QNetworkRequest request((QUrl(apiUrl)));
 
@@ -35,7 +35,13 @@ void ApiManager::getUsers(int page, int count, std::function<void(QList<User>, b
 
     reply->deleteLater();
 
-    callback(users, success, errorString);
+//    callback(users, success, errorString);
+    if(success) {
+        return users;
+    } else {
+        qDebug() << errorString;
+        return users; // fix
+    }
 }
 
 
@@ -72,6 +78,45 @@ void ApiManager::getPositions(std::function<void(QList<QString>, bool, QString)>
 
     reply->deleteLater();
     callback(positions, success, errorString);
+}
+
+User ApiManager::getUser(int id) {
+    QString apiUrl = _baseUrl + "users/" + QString::number(id);
+    QNetworkRequest request((QUrl(apiUrl)));
+
+
+    QNetworkReply *reply = _networkAccessManager.get(request);
+
+    QEventLoop loop;
+    QObject::connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+    loop.exec();
+
+    User user;
+    bool success = false;
+    QString errorString;
+
+    if (reply->error() == QNetworkReply::NoError) {
+        QByteArray response = reply->readAll();
+        QJsonDocument jsonResponse = QJsonDocument::fromJson(response);
+        if (jsonResponse["success"].toBool()) {
+            success = true;
+            user = User::fromJson(jsonResponse["user"].toObject());
+        } else {
+            errorString = jsonResponse["message"].toString();
+        }
+    } else {
+        errorString = reply->errorString();
+    }
+
+    reply->deleteLater();
+
+//    callback(user, success, errorString);
+    if(success) {
+        return user;
+    } else {
+        qDebug() << errorString;
+        return User();
+    }
 }
 
 void ApiManager::registerUser(const QString &name, const QString &email, const QString &phone, int positionId, const QString &photoFilename) {
