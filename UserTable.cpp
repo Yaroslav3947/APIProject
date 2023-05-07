@@ -1,6 +1,6 @@
 #include "UserTable.h"
 
-UserTable::UserTable(QWidget *parent): QWidget(parent), _page(1), _count(USER_NUM_PER_PAGE) {
+UserTable::UserTable(QWidget *parent): QWidget(parent), _userLayout(nullptr), _page(1), _count(USER_NUM_PER_PAGE) {
     _apiManager = new ApiManager();
 }
 
@@ -22,7 +22,7 @@ void UserTable::loadUsers(Ui::MainWindow *ui) {
 
 void UserTable::loadMoreUsers(Ui::MainWindow *ui) {
 
-    clearUsers();
+    clearUsers(); // fix
 
     _page++;
 
@@ -36,10 +36,13 @@ void UserTable::loadMoreUsers(Ui::MainWindow *ui) {
 
     //Determine if to show the button
     _hasMorePages = _apiManager->hasMorePages(_page);
-
 }
 
 void UserTable::clearUsers() {
+    if (!_userLayout) {
+        return;
+    }
+
     QLayoutItem *child;
     while((child = _userLayout->takeAt(0)) != nullptr) {
         delete child->widget();

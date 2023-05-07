@@ -38,7 +38,6 @@ MainWindow::~MainWindow() {
     delete ui;
 }
 
-
 void MainWindow::loadMoreUsers() {
     _userTable->loadMoreUsers(ui);
     ui->showMoreButton->setVisible(_userTable->getHasMorePages());
