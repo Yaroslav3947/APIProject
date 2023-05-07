@@ -35,12 +35,12 @@ QList<User> ApiManager::getUsers(int page, int count) {
 
     reply->deleteLater();
 
-//    callback(users, success, errorString);
     if(success) {
         return users;
     } else {
         qDebug() << errorString;
-        return users; // fix
+        QList<User> errorList = {User()};
+        return errorList;
     }
 }
 
@@ -126,7 +126,7 @@ QMap<QString, int> ApiManager::getPositions() {
     }
 
     reply->deleteLater();
-//    callback(positions, success, errorString);
+
     if(success) {
         return positions;
     } else {
@@ -168,7 +168,6 @@ User ApiManager::getUser(int id) {
 
     reply->deleteLater();
 
-//    callback(user, success, errorString);
     if(success) {
         return user;
     } else {
@@ -181,7 +180,7 @@ void ApiManager::registerUser(const User *user) {
     QUrl apiUrl = _baseUrl + "users";
     QNetworkRequest request((QUrl(apiUrl)));
 
-    // create form data with user information
+    // create request using user information
     QHttpMultiPart *multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
 
     QHttpPart namePart;
@@ -228,7 +227,7 @@ void ApiManager::registerUser(const User *user) {
     QObject::connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
     loop.exec();
 
-    // parse response
+    // parse error response
     QString response1 = QString::fromUtf8(reply->readAll());
     QJsonDocument json1 = QJsonDocument::fromJson(response1.toUtf8());
     QString message = json1.object().value("message").toString();
@@ -304,6 +303,3 @@ QString ApiManager::getToken() {
 bool ApiManager::hasMorePages(const int &page) {
     return this->getTotalPages() - 1 > page;
 }
-
-
-

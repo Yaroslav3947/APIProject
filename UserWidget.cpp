@@ -2,7 +2,7 @@
 
 UserWidget::UserWidget(const User &user, QWidget *parent) : QWidget(parent) {
 
-    QHBoxLayout *layout = new QHBoxLayout(this);
+    _resultLayout = new QHBoxLayout(this);
 
     _photoLabel = new QLabel(this);
     _photoLabel->setFixedSize(84, 84);
@@ -10,7 +10,7 @@ UserWidget::UserWidget(const User &user, QWidget *parent) : QWidget(parent) {
     // TODO: Load photo from API
     QPixmap userPhoto("C:/Users/Yaroslav/Desktop/photo.png");
     _photoLabel->setPixmap(userPhoto.scaled(_photoLabel->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
-    layout->addWidget(_photoLabel);
+    _resultLayout->addWidget(_photoLabel);
 
     _userInfoLayout = new QVBoxLayout();
 
@@ -35,6 +35,10 @@ UserWidget::UserWidget(const User &user, QWidget *parent) : QWidget(parent) {
     _userInfoLayout->addWidget(_phoneNumberLabel);
 
 
+    _resultLayout->addLayout(_userInfoLayout);
+}
 
-    layout->addLayout(_userInfoLayout);
+UserWidget::~UserWidget() {
+    delete _userInfoLayout;
+    delete _userFrameLayout;
 }

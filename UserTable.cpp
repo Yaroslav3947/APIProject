@@ -1,6 +1,6 @@
 #include "UserTable.h"
 
-UserTable::UserTable(QWidget *parent): QWidget(parent), _page(1), _count(USER_NUM_PER_PAGE) {
+UserTable::UserTable(QWidget *parent): QWidget(parent), _page(START_PAGE), _count(USER_NUM_PER_PAGE) {
     _apiManager = new ApiManager();
 }
 
@@ -50,6 +50,7 @@ bool UserTable::getHasMorePages() {
     return _hasMorePages;
 }
 
-
-
-
+UserTable::~UserTable() {
+    delete _userLayout;
+    delete _apiManager;
+}

@@ -12,28 +12,29 @@
 #include <QJsonDocument>
 
 #include <QNetworkAccessManager>
+#include <QNetworkReply>
 
 #include "User.h"
-#include "qnetworkreply.h"
 
 class ApiManager : public QObject {
     Q_OBJECT
 public:
     ApiManager(QObject* parent = nullptr);
 
-    // for get
-    QList<User> getUsers(int page, int count);
+    bool hasMorePages(const int &page);
+
+    // for get Api
+    QString getToken();
     int getTotalUsers();
     int getTotalPages();
-    QString getToken();
-    QMap<QString, int> getPositions();
     User getUser(int id);
+    QMap<QString, int> getPositions();
+    QList<User> getUsers(int page, int count);
 
-    // for post
+    // for post Api
     void registerUser(const User *user);
 
-    bool hasMorePages(const int &page);
 private:
     QNetworkAccessManager _networkAccessManager;
-    QString _baseUrl = "https://frontend-test-assignment-api.abz.agency/api/v1/";
+    const QString _baseUrl = "https://frontend-test-assignment-api.abz.agency/api/v1/";
 };

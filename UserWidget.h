@@ -10,6 +10,7 @@ class UserWidget : public QWidget {
     Q_OBJECT
 public:
     UserWidget(const User &user, QWidget *parent = nullptr);
+    ~UserWidget();
 
 private:
     QLabel *_photoLabel;
@@ -18,7 +19,9 @@ private:
     QLabel *_positionLabel;
     QLabel *_phoneNumberLabel;
 
+    QHBoxLayout *_resultLayout;
     QVBoxLayout *_userInfoLayout;
     QHBoxLayout *_userFrameLayout;
+
 
 };

@@ -25,7 +25,7 @@ void RegistrationForm::onRadioButtonClicked() {
     }
 }
 
-void RegistrationForm::registerUser(Ui::MainWindow* ui) {
+void RegistrationForm::registerUser(Ui::MainWindow *ui) {
     _user->setName(ui->nameLine->text());
     _user->setEmail(ui->emailLine->text());
     _user->setPhoneNumber(ui->phoneLine->text());

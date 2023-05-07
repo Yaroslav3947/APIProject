@@ -1,7 +1,8 @@
 #pragma once
 
-#include <regex>
 #include <QMainWindow>
+#include <QRegularExpression>
+#include <QRegularExpressionValidator>
 
 #include "UserTable.h"
 #include "ui_mainwindow.h"
@@ -21,6 +22,9 @@ private:
     Ui::MainWindow *ui;
     UserTable *_userTable;
     RegistrationForm *_registrationForm;
+
+    void setupUi();
+    void connectSignalsAndSlots();
 private slots:
     void loadMoreUsers();
     void regiserUser();

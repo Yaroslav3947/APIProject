@@ -38,14 +38,10 @@ height: 54px;
 }
 QTabBar:tab:font {
     font-family: 'Inter';
-    font-style: normal;
     font-weight: 400;
     font-size: 18px;
-    line-height: 22px;
     color: #000000;
-    flex: none;
-    order: 0;
-    flex-grow: 0;
+
 }
 </string>
     </property>
