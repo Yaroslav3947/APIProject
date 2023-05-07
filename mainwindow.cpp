@@ -1,10 +1,18 @@
 #include "mainwindow.h"
 
+#include <QRegularExpression>
+#include <QRegularExpressionValidator>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow) {
     ui->setupUi(this);
+    ui->nameLine->setPlaceholderText("Name");
+    ui->emailLine->setPlaceholderText("Email");
+    ui->phoneLine->setPlaceholderText("Phone");
+    QRegularExpression phoneRegex("^\\+?380[0-9]{9}$");
+    QValidator *phoneValidator = new QRegularExpressionValidator(phoneRegex, this);
+    ui->phoneLine->setValidator(phoneValidator);
 
     _userTable = new UserTable();
     _registrationForm = new RegistrationForm();

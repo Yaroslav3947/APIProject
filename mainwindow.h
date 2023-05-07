@@ -1,5 +1,6 @@
 #pragma once
 
+#include <regex>
 #include <QMainWindow>
 
 #include "UserTable.h"

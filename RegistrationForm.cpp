@@ -11,6 +11,7 @@ void RegistrationForm::loadRadioButtons(Ui::MainWindow *ui) {
 
     for (const auto &position : _positions.keys()) {
         QRadioButton *radioButton = new QRadioButton(position);
+        radioButton->setStyleSheet("font-size: 16px;font-family: 'Inter';");
         connect(radioButton, &QRadioButton::clicked, this, &RegistrationForm::onRadioButtonClicked);
         _radioButtonsLayout->addWidget(radioButton);
     }

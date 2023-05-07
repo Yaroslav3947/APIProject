@@ -29,6 +29,7 @@
     <property name="styleSheet">
      <string notr="true">
 QTabWidget:tab-bar {
+font-family: 'Inter';
 alignment: center;
 }
 QTabBar:tab {
@@ -49,7 +50,7 @@ QTabBar:tab:font {
 </string>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <property name="usesScrollButtons">
      <bool>false</bool>
@@ -142,9 +143,16 @@ border: 1px solid black
          <height>40</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <family>Inter</family>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
        <property name="styleSheet">
         <string notr="true">background: #989898;
-border-radius: 2px;</string>
+border-radius: 2px;
+font-family: 'Inter'</string>
        </property>
        <property name="text">
         <string>Show More</string>
@@ -221,8 +229,12 @@ border-radius: 2px;</string>
         </property>
         <property name="font">
          <font>
+          <family>Inter</family>
           <pointsize>16</pointsize>
          </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font-family: 'Inter'</string>
         </property>
         <property name="text">
          <string>Name</string>
@@ -236,6 +248,15 @@ border-radius: 2px;</string>
           <width>400</width>
           <height>48</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Inter</family>
+          <pointsize>16</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font-family: 'Inter'</string>
         </property>
         <property name="text">
          <string/>
@@ -271,8 +292,12 @@ border-radius: 2px;</string>
         </property>
         <property name="font">
          <font>
+          <family>Inter</family>
           <pointsize>16</pointsize>
          </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font-family: 'Inter'</string>
         </property>
         <property name="text">
          <string>Email</string>
@@ -286,6 +311,15 @@ border-radius: 2px;</string>
           <width>400</width>
           <height>48</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Inter</family>
+          <pointsize>16</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font-family: 'Inter'</string>
         </property>
         <property name="text">
          <string/>
@@ -301,7 +335,7 @@ border-radius: 2px;</string>
          <x>120</x>
          <y>260</y>
          <width>400</width>
-         <height>98</height>
+         <height>101</height>
         </rect>
        </property>
        <property name="frameShape">
@@ -321,8 +355,12 @@ border-radius: 2px;</string>
         </property>
         <property name="font">
          <font>
+          <family>Inter</family>
           <pointsize>16</pointsize>
          </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font-family: 'Inter'</string>
         </property>
         <property name="text">
          <string>Phone</string>
@@ -337,6 +375,15 @@ border-radius: 2px;</string>
           <height>48</height>
          </rect>
         </property>
+        <property name="font">
+         <font>
+          <family>Inter</family>
+          <pointsize>16</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font-family: 'Inter'</string>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -349,9 +396,18 @@ border-radius: 2px;</string>
          <rect>
           <x>1</x>
           <y>82</y>
-          <width>140</width>
-          <height>15</height>
+          <width>191</width>
+          <height>16</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Inter</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font-family: 'Inter'</string>
         </property>
         <property name="text">
          <string>+38 (XXX) XXX - XX - XX</string>
@@ -384,8 +440,12 @@ border-radius: 2px;</string>
         </property>
         <property name="font">
          <font>
+          <family>Inter</family>
           <pointsize>16</pointsize>
          </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font-family: 'Inter'</string>
         </property>
         <property name="text">
          <string>Position</string>
@@ -434,8 +494,12 @@ border-radius: 2px;</string>
         </property>
         <property name="font">
          <font>
+          <family>Inter</family>
           <pointsize>16</pointsize>
          </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font-family: 'Inter'</string>
         </property>
         <property name="text">
          <string>Photo</string>
@@ -472,9 +536,16 @@ border: 1px solid black
          <height>40</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <family>Inter</family>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
        <property name="styleSheet">
         <string notr="true">background: #989898;
-border-radius: 2px;</string>
+border-radius: 2px;
+font-family: 'Inter'</string>
        </property>
        <property name="text">
         <string>Add user</string>
