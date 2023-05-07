@@ -1,9 +1,10 @@
 #pragma once
 
 #include <QMainWindow>
-#include <UserTable.h>
-#include "ui_mainwindow.h"
 
+#include "UserTable.h"
+#include "ui_mainwindow.h"
+#include "RegistrationForm.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -18,7 +19,9 @@ public:
 private:
     Ui::MainWindow *ui;
     UserTable *_userTable;
+    RegistrationForm *_registrationForm;
 private slots:
     void loadMoreUsers();
+    void regiserUser();
 };
 

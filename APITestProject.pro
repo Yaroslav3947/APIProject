@@ -11,6 +11,7 @@ CONFIG += c++17
 
 SOURCES += \
     ApiManager.cpp \
+    RegistrationForm.cpp \
     User.cpp \
     UserTable.cpp \
     UserWidget.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
 
 HEADERS += \
     ApiManager.h \
+    RegistrationForm.h \
     User.h \
     UserTable.h \
     UserWidget.h \

@@ -13,12 +13,25 @@ public:
          const QString &phoneNumber,
          const QString &photoUrl);
 
+    User(const QString &name,
+         const QString &email,
+         const QString &phoneNumber,
+         QString &position,
+         const QString &photoUrl);
+
     int getId() const;
     QString getName() const;
     QString getEmail() const;
     QString getPosition() const;
     QString getPhotoUrl() const;
     QString getPhoneNumber() const;
+
+    void setId(int id);
+    void setName(QString name);
+    void setEmail(QString email);
+    void setPosition(QString position);
+    void setPhotoUrl(QString photoUrl);
+    void setPhoneNumber(QString phoneNumber);
 
     static User fromJson(const QJsonObject &json);
     QJsonObject toJson() const;

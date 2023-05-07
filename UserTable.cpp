@@ -1,11 +1,7 @@
 #include "UserTable.h"
 
-#include <UserWidget.h>
-
-
 UserTable::UserTable(QWidget *parent): QWidget(parent), _page(1), _count(USER_NUM_PER_PAGE) {
     _apiManager = new ApiManager();
-
 }
 
 void UserTable::loadUsers(Ui::MainWindow *ui) {
@@ -20,7 +16,8 @@ void UserTable::loadUsers(Ui::MainWindow *ui) {
         _userLayout->addWidget(userWidget);
     }
 
-    _hasMoreUsers = _apiManager->hasMorePages(_page);
+    //Determine if to show the button
+    _hasMorePages = _apiManager->hasMorePages(_page);
 }
 
 void UserTable::loadMoreUsers(Ui::MainWindow *ui) {
@@ -37,7 +34,8 @@ void UserTable::loadMoreUsers(Ui::MainWindow *ui) {
         _userLayout->addWidget(userWidget);
     }
 
-    _hasMoreUsers = _apiManager->hasMorePages(_page);
+    //Determine if to show the button
+    _hasMorePages = _apiManager->hasMorePages(_page);
 
 }
 
@@ -48,8 +46,8 @@ void UserTable::clearUsers() {
     }
 }
 
-bool UserTable::getHasMoreUsers() {
-    return _hasMoreUsers;
+bool UserTable::getHasMorePages() {
+    return _hasMorePages;
 }
 
 

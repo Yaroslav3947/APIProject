@@ -1,6 +1,5 @@
 #include "UserWidget.h"
 
-
 UserWidget::UserWidget(const User &user, QWidget *parent) : QWidget(parent) {
 
     QHBoxLayout *layout = new QHBoxLayout(this);

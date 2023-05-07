@@ -38,6 +38,30 @@ QString User::getPhoneNumber() const {
     return _phoneNumber;
 }
 
+void User::setId(int id) {
+    _id = id;
+}
+
+void User::setName(QString name) {
+    _name = name;
+}
+
+void User::setEmail(QString email) {
+    _email = email;
+}
+
+void User::setPosition(QString position) {
+    _position = position;
+}
+
+void User::setPhotoUrl(QString photoUrl) {
+    _photoUrl = photoUrl;
+}
+
+void User::setPhoneNumber(QString phoneNumber) {
+    _phoneNumber = phoneNumber;
+}
+
 User User::fromJson(const QJsonObject& json) {
     int id = json["id"].toInt();
     QString name = json["name"].toString();

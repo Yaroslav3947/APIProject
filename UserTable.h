@@ -1,13 +1,15 @@
 #pragma once
 
-#include <QVBoxLayout>
-#include <QPushButton>
+
 #include <QHBoxLayout>
-#include <QLabel>
 #include <QFrame>
 #include <QPixmap>
+
+
 #include "ApiManager.h"
+#include "UserWidget.h"
 #include "ui_mainwindow.h"
+
 
 class UserTable : public QWidget {
     Q_OBJECT
@@ -16,7 +18,7 @@ public:
 
 
     void clearUsers();
-    bool getHasMoreUsers();
+    bool getHasMorePages();
     void loadUsers(Ui::MainWindow *ui);
     void loadMoreUsers(Ui::MainWindow *ui);
 
@@ -26,7 +28,7 @@ private:
     QVBoxLayout *_userLayout;
     int _page;
     int _count;
-    bool _hasMoreUsers;
+    bool _hasMorePages;
 public:
 
 

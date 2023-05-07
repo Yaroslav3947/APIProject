@@ -1,12 +1,16 @@
 #pragma once
 
 #include <QUrl>
+#include <QMap>
+#include <QFile>
 #include <QDebug>
 #include <QObject>
+#include <QHttpPart>
 #include <QJsonArray>
 #include <QEventLoop>
 #include <QJsonObject>
 #include <QJsonDocument>
+
 #include <QNetworkAccessManager>
 
 #include "User.h"
@@ -21,13 +25,14 @@ public:
     QList<User> getUsers(int page, int count);
     int getTotalUsers();
     int getTotalPages();
-    void getPositions(std::function<void(QList<QString>, bool, QString)> callback);
+    QString getToken();
+    QMap<QString, int> getPositions();
     User getUser(int id);
 
     // for post
-    void registerUser(const QString &name, const QString &email, const QString &phone, int positionId, const QString &photoFilename);
+    void registerUser(const User *user);
 
-    bool hasMorePages(const int page);
+    bool hasMorePages(const int &page);
 private:
     QNetworkAccessManager _networkAccessManager;
     QString _baseUrl = "https://frontend-test-assignment-api.abz.agency/api/v1/";
