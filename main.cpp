@@ -29,7 +29,8 @@ void callBack(User user, bool success, QString errorString) {
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
 
-//    ApiManager *apiManager = new ApiManager;
+    ApiManager *apiManager = new ApiManager;
+    qDebug() << apiManager->getTotalUsers() << apiManager->getTotalPages();
 //    apiManager->getUser(1,callBack);
 //    apiManager->getUsers(1,5,callBack);
     MainWindow w;

@@ -44,6 +44,54 @@ QList<User> ApiManager::getUsers(int page, int count) {
     }
 }
 
+int ApiManager::getTotalUsers()  {
+    QString apiUrl = _baseUrl + "users";
+    QNetworkRequest request((QUrl(apiUrl)));
+    QNetworkReply *reply = _networkAccessManager.get(request);
+    QEventLoop eventLoop;
+    QObject::connect(reply, &QNetworkReply::finished, &eventLoop, &QEventLoop::quit);
+    eventLoop.exec();
+
+    if (reply->error() != QNetworkReply::NoError) {
+        qWarning() << "Error fetching user count:" << reply->errorString();
+        return -1;
+    }
+
+    QByteArray data = reply->readAll();
+    QJsonDocument doc = QJsonDocument::fromJson(data);
+    QJsonObject obj = doc.object();
+
+    if (obj.contains("total_users")) {
+        return obj.value("total_users").toInt();
+    }
+
+    return -1;
+}
+
+int ApiManager::getTotalPages()  {
+    QString apiUrl = _baseUrl + "users";
+    QNetworkRequest request((QUrl(apiUrl)));
+    QNetworkReply *reply = _networkAccessManager.get(request);
+    QEventLoop eventLoop;
+    QObject::connect(reply, &QNetworkReply::finished, &eventLoop, &QEventLoop::quit);
+    eventLoop.exec();
+
+    if (reply->error() != QNetworkReply::NoError) {
+        qWarning() << "Error fetching user count:" << reply->errorString();
+        return -1;
+    }
+
+    QByteArray data = reply->readAll();
+    QJsonDocument doc = QJsonDocument::fromJson(data);
+    QJsonObject obj = doc.object();
+
+    if (obj.contains("total_pages")) {
+        return obj.value("total_pages").toInt();
+    }
+
+    return -1;
+}
+
 
 void ApiManager::getPositions(std::function<void(QList<QString>, bool, QString)> callback) {
     QString apiUrl = _baseUrl + "positions";
@@ -121,6 +169,10 @@ User ApiManager::getUser(int id) {
 
 void ApiManager::registerUser(const QString &name, const QString &email, const QString &phone, int positionId, const QString &photoFilename) {
 
+}
+
+bool ApiManager::hasMorePages(const int page) {
+    return this->getTotalPages() - 1 > page;
 }
 
 

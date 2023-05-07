@@ -18,5 +18,7 @@ public:
 private:
     Ui::MainWindow *ui;
     UserTable *_userTable;
+private slots:
+    void loadMoreUsers();
 };
 

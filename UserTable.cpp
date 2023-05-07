@@ -1,57 +1,57 @@
 #include "UserTable.h"
 
+#include <UserWidget.h>
 
-UserTable::UserTable(QWidget *parent) : QWidget(parent) {
+
+UserTable::UserTable(QWidget *parent): QWidget(parent), _page(1), _count(USER_NUM_PER_PAGE) {
     _apiManager = new ApiManager();
+
 }
+
 void UserTable::loadUsers(Ui::MainWindow *ui) {
-    const int USER_NUM_PER_PAGE = 6;
-    _userLayout = new QVBoxLayout(ui->usersTab);
-    _userLayout->setContentsMargins(24, 0, 0, 0);
-    QList<User> users = _apiManager->getUsers(1,USER_NUM_PER_PAGE);
+    _userLayout = new QVBoxLayout(ui->usersListFrame);
+    _userLayout->setContentsMargins(0, 0, 0, 0);
 
-    for (int i = 0; i < USER_NUM_PER_PAGE; i++) {
-        User *user = new User(users[i]);
+    QList<User> users = _apiManager->getUsers(_page, _count);
 
-        QFrame *userFrame = new QFrame(ui->usersTab);
-        userFrame->setFixedSize(640, 117);
+    for (const auto &user: users) {
+        UserWidget *userWidget = new UserWidget(user, ui->usersListFrame);
+        userWidget->setFixedSize(640, 117);
+        _userLayout->addWidget(userWidget);
+    }
 
-        QHBoxLayout *userFrameLayout = new QHBoxLayout(userFrame);
+    _hasMoreUsers = _apiManager->hasMorePages(_page);
+}
 
-        QLabel *photoLabel = new QLabel(userFrame);
-        photoLabel->setFixedSize(84, 84);
+void UserTable::loadMoreUsers(Ui::MainWindow *ui) {
 
-        // TODO: Load photo from API
-        QPixmap userPhoto("C:/Users/Yaroslav/Desktop/photo.png");
-        photoLabel->setPixmap(userPhoto.scaled(photoLabel->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    clearUsers();
 
-        QVBoxLayout *userInfoLayout = new QVBoxLayout();
-        userInfoLayout->setSpacing(1);
+    _page++;
 
-        QLabel *nameLabel = new QLabel(userFrame);
-        nameLabel->setText(user->getName());
-        nameLabel->setStyleSheet("color: #000000; font-size: 18px;");
+    QList<User> users = _apiManager->getUsers(_page, _count);
 
-        QLabel *emailLabel = new QLabel(userFrame);
-        emailLabel->setText(user->getEmail());
-        emailLabel->setStyleSheet("color: #6B6B6B;font-family: 'Inter'; font-size: 12px;");
+    for (const auto &user: users) {
+        UserWidget *userWidget = new UserWidget(user, ui->usersListFrame);
+        userWidget->setFixedSize(640, 117);
+        _userLayout->addWidget(userWidget);
+    }
 
-        QLabel *positionLabel = new QLabel(userFrame);
-        positionLabel->setText(user->getPosition());
-        positionLabel->setStyleSheet("color: #6B6B6B;font-family: 'Inter'; font-size: 12px;");
+    _hasMoreUsers = _apiManager->hasMorePages(_page);
 
-        QLabel *phoneNumberLabel = new QLabel(userFrame);
-        phoneNumberLabel->setText(user->getPhoneNumber());
-        phoneNumberLabel->setStyleSheet("color: #6B6B6B; font-family: 'Inter'; font-size: 12px;");
+}
 
-        userInfoLayout->addWidget(nameLabel);
-        userInfoLayout->addWidget(positionLabel);
-        userInfoLayout->addWidget(emailLabel);
-        userInfoLayout->addWidget(phoneNumberLabel);
-
-        userFrameLayout->addWidget(photoLabel);
-        userFrameLayout->addLayout(userInfoLayout);
-
-        _userLayout->addWidget(userFrame);
+void UserTable::clearUsers() {
+    QLayoutItem *child;
+    while((child = _userLayout->takeAt(0)) != nullptr) {
+        delete child->widget();
     }
 }
+
+bool UserTable::getHasMoreUsers() {
+    return _hasMoreUsers;
+}
+
+
+
+

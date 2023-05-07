@@ -13,6 +13,7 @@ SOURCES += \
     ApiManager.cpp \
     User.cpp \
     UserTable.cpp \
+    UserWidget.cpp \
     main.cpp \
     mainwindow.cpp
 
@@ -20,6 +21,7 @@ HEADERS += \
     ApiManager.h \
     User.h \
     UserTable.h \
+    UserWidget.h \
     mainwindow.h
 
 FORMS += \
