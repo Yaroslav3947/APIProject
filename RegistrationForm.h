@@ -7,19 +7,19 @@
 #include "ApiManager.h"
 #include "ui_mainwindow.h"
 
-
 class RegistrationForm : public QObject {
 public:
     RegistrationForm();
-    ~RegistrationForm();
     void loadRadioButtons(Ui::MainWindow *ui);
     void registerUser(Ui::MainWindow *ui);
-    User *getUser();
+    std::unique_ptr<User> getUser();
+
 private:
-    User *_user;
-    QVBoxLayout *_radioButtonsLayout;
-    ApiManager *_apiManager;
+    std::unique_ptr<User> _user;
+    std::unique_ptr<QVBoxLayout> _radioButtonsLayout;
+    std::unique_ptr<ApiManager> _apiManager;
     QMap<QString, int> _positions;
+
 private slots:
     void onRadioButtonClicked();
 

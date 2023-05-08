@@ -1,9 +1,9 @@
 #pragma once
 
-#include <QWidget>
 #include <QLabel>
-#include <QVBoxLayout>
+#include <QWidget>
 #include <QEventLoop>
+#include <QVBoxLayout>
 #include <QNetworkReply>
 #include <QNetworkAccessManager>
 

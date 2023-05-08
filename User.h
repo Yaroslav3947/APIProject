@@ -13,12 +13,6 @@ public:
          const QString &phoneNumber,
          const QString &photoUrl);
 
-    User(const QString &name,
-         const QString &email,
-         const QString &phoneNumber,
-         QString &position,
-         const QString &photoUrl);
-
     int getId() const;
     QString getName() const;
     QString getEmail() const;

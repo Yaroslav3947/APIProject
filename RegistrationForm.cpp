@@ -1,13 +1,13 @@
 #include "RegistrationForm.h"
 
 RegistrationForm::RegistrationForm() {
-    _apiManager = new ApiManager();
+    _apiManager = std::make_unique<ApiManager>();
     _positions = _apiManager->getPositions();
-    _user = new User();
+    _user = std::make_unique<User>();
 }
 
 void RegistrationForm::loadRadioButtons(Ui::MainWindow *ui) {
-    _radioButtonsLayout = new QVBoxLayout(ui->radioButtonFrame);
+    _radioButtonsLayout = std::make_unique<QVBoxLayout>(ui->radioButtonFrame);
 
     for (const auto &position : _positions.keys()) {
         QRadioButton *radioButton = new QRadioButton(position);
@@ -38,12 +38,6 @@ void RegistrationForm::registerUser(Ui::MainWindow *ui) {
              << getUser()->getPosition();
 }
 
-RegistrationForm::~RegistrationForm() {
-    delete _radioButtonsLayout;
-    delete _apiManager;
-    delete _user;
-}
-
-User *RegistrationForm::getUser() {
-    return _user;
+std::unique_ptr<User>RegistrationForm::getUser() {
+    return std::move(_user);
 }

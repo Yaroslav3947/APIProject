@@ -1,11 +1,15 @@
 #include "UserTable.h"
 
-UserTable::UserTable(QWidget *parent): QWidget(parent), _userLayout(nullptr), _page(1), _count(USER_NUM_PER_PAGE) {
-    _apiManager = new ApiManager();
+UserTable::UserTable(QWidget *parent):
+    QWidget(parent),
+    _apiManager(std::make_unique<ApiManager>()),
+    _userLayout(nullptr),
+    _page(START_PAGE),
+    _count(USER_NUM_PER_PAGE) {
 }
 
 void UserTable::loadUsers(Ui::MainWindow *ui) {
-    _userLayout = new QVBoxLayout(ui->usersListFrame);
+    _userLayout = std::make_unique<QVBoxLayout>(ui->usersListFrame);
     _userLayout->setContentsMargins(0, 0, 0, 0);
 
     QList<User> users = _apiManager->getUsers(_page, _count);
@@ -16,13 +20,13 @@ void UserTable::loadUsers(Ui::MainWindow *ui) {
         _userLayout->addWidget(userWidget);
     }
 
-    //Determine if to show the button
+    //Determine whether to show the button
     _hasMorePages = _apiManager->hasMorePages(_page);
 }
 
 void UserTable::loadMoreUsers(Ui::MainWindow *ui) {
 
-    clearUsers(); // fix
+    clearUsers();
 
     _page++;
 
@@ -34,7 +38,7 @@ void UserTable::loadMoreUsers(Ui::MainWindow *ui) {
         _userLayout->addWidget(userWidget);
     }
 
-    //Determine if to show the button
+    //Determine whether to show the button
     _hasMorePages = _apiManager->hasMorePages(_page);
 }
 
@@ -53,7 +57,4 @@ bool UserTable::getHasMorePages() {
     return _hasMorePages;
 }
 
-UserTable::~UserTable() {
-    delete _userLayout;
-    delete _apiManager;
-}
+
