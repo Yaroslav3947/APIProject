@@ -18,22 +18,23 @@
 class ApiManager : public QObject {
     Q_OBJECT
 public:
-    ApiManager(QObject* parent = nullptr);
+    ApiManager(QObject *parent = nullptr);
 
     bool hasMorePages(const int &page);
 
-    // for get Api
+    // For get Api
     QString getToken();
     int getTotalUsers();
     int getTotalPages();
-    User getUser(int id);
+    User getUser(const int &id);
     QMap<QString, int> getPositions();
-    QList<User> getUsers(int page, int count);
+    QList<User> getUsers(const int &page, const int &count);
 
-    // for post Api
-    void registerUser(std::unique_ptr<User> user);
+    // For post Api
+    void registerUser(const std::unique_ptr<User> user);
 
 private:
+
     QNetworkAccessManager _networkAccessManager;
     const QString _baseUrl = "https://frontend-test-assignment-api.abz.agency/api/v1/";
 };

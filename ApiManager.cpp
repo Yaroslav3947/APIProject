@@ -3,8 +3,8 @@
 ApiManager::ApiManager(QObject* parent) : QObject(parent) {
 }
 
-QList<User> ApiManager::getUsers(int page, int count) {
-    QString apiUrl = _baseUrl + "users?page=" + QString::number(page) + "&count=" + QString::number(count);
+QList<User> ApiManager::getUsers(const int &page, const int &count) {
+    const QString apiUrl = _baseUrl + "users?page=" + QString::number(page) + "&count=" + QString::number(count);
     QNetworkRequest request((QUrl(apiUrl)));
 
     QNetworkReply *reply = _networkAccessManager.get(request);
@@ -15,7 +15,7 @@ QList<User> ApiManager::getUsers(int page, int count) {
 
     QList<User> users;
     bool success = false;
-    QString errorString;
+    QString errorString{};
 
     if (reply->error() == QNetworkReply::NoError) {
         QByteArray response = reply->readAll();
@@ -45,9 +45,11 @@ QList<User> ApiManager::getUsers(int page, int count) {
 }
 
 int ApiManager::getTotalUsers()  {
-    QString apiUrl = _baseUrl + "users";
+    const QString apiUrl = _baseUrl + "users";
     QNetworkRequest request((QUrl(apiUrl)));
+
     QNetworkReply *reply = _networkAccessManager.get(request);
+
     QEventLoop eventLoop;
     QObject::connect(reply, &QNetworkReply::finished, &eventLoop, &QEventLoop::quit);
     eventLoop.exec();
@@ -69,9 +71,11 @@ int ApiManager::getTotalUsers()  {
 }
 
 int ApiManager::getTotalPages()  {
-    QString apiUrl = _baseUrl + "users";
+    const QString apiUrl = _baseUrl + "users";
     QNetworkRequest request((QUrl(apiUrl)));
+
     QNetworkReply *reply = _networkAccessManager.get(request);
+
     QEventLoop eventLoop;
     QObject::connect(reply, &QNetworkReply::finished, &eventLoop, &QEventLoop::quit);
     eventLoop.exec();
@@ -93,7 +97,7 @@ int ApiManager::getTotalPages()  {
 }
 
 QMap<QString, int> ApiManager::getPositions() {
-    QString apiUrl = _baseUrl + "positions";
+    const QString apiUrl = _baseUrl + "positions";
     QNetworkRequest request((QUrl(apiUrl)));
 
     QNetworkReply *reply = _networkAccessManager.get(request);
@@ -104,7 +108,7 @@ QMap<QString, int> ApiManager::getPositions() {
 
     QMap<QString, int> positions;
     bool success = false;
-    QString errorString;
+    QString errorString{};
 
     if (reply->error() == QNetworkReply::NoError) {
         QByteArray response = reply->readAll();
@@ -137,10 +141,9 @@ QMap<QString, int> ApiManager::getPositions() {
 }
 
 
-User ApiManager::getUser(int id) {
-    QString apiUrl = _baseUrl + "users/" + QString::number(id);
+User ApiManager::getUser(const int &id) {
+    const QString apiUrl = _baseUrl + "users/" + QString::number(id);
     QNetworkRequest request((QUrl(apiUrl)));
-
 
     QNetworkReply *reply = _networkAccessManager.get(request);
 
@@ -150,7 +153,7 @@ User ApiManager::getUser(int id) {
 
     User user;
     bool success = false;
-    QString errorString;
+    QString errorString{};
 
     if (reply->error() == QNetworkReply::NoError) {
         QByteArray response = reply->readAll();
@@ -176,7 +179,7 @@ User ApiManager::getUser(int id) {
 }
 
 void ApiManager::registerUser(const std::unique_ptr<User> user) {
-    QUrl apiUrl = _baseUrl + "users";
+    const QUrl apiUrl = _baseUrl + "users";
     QNetworkRequest request((QUrl(apiUrl)));
 
     // create request using user information
@@ -262,7 +265,7 @@ void ApiManager::registerUser(const std::unique_ptr<User> user) {
 }
 
 QString ApiManager::getToken() {
-    QString apiUrl = _baseUrl + "token";
+    const QString apiUrl = _baseUrl + "token";
     QNetworkRequest request((QUrl(apiUrl)));
 
     QNetworkReply *reply = _networkAccessManager.get(request);
@@ -273,7 +276,7 @@ QString ApiManager::getToken() {
 
     QString token;
     bool success = false;
-    QString errorString;
+    QString errorString{};
 
     if (reply->error() == QNetworkReply::NoError) {
         QByteArray response = reply->readAll();
