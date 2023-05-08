@@ -20,8 +20,8 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    UserTable *_userTable;
-    RegistrationForm *_registrationForm;
+    std::unique_ptr<UserTable> _userTable;
+    std::unique_ptr<RegistrationForm> _registrationForm;
 
     void setupUi();
     void connectSignalsAndSlots();

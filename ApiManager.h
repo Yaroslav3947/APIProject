@@ -10,9 +10,8 @@
 #include <QEventLoop>
 #include <QJsonObject>
 #include <QJsonDocument>
-
-#include <QNetworkAccessManager>
 #include <QNetworkReply>
+#include <QNetworkAccessManager>
 
 #include "User.h"
 
@@ -32,7 +31,7 @@ public:
     QList<User> getUsers(int page, int count);
 
     // for post Api
-    void registerUser(const User *user);
+    void registerUser(std::unique_ptr<User> user);
 
 private:
     QNetworkAccessManager _networkAccessManager;

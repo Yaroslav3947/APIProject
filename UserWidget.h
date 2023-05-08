@@ -7,7 +7,7 @@
 #include <QNetworkReply>
 #include <QNetworkAccessManager>
 
-#include <User.h>
+#include "User.h"
 
 class UserWidget : public QWidget {
     Q_OBJECT
@@ -26,4 +26,5 @@ private:
     std::unique_ptr<QHBoxLayout> _userFrameLayout;
 
     void setPhoto(const QString &photoUrl);
+
 };

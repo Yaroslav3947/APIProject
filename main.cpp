@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
 
 
     ApiManager *apiManager = new ApiManager;
-//    qDebug() << apiManager->getTotalUsers() << apiManager->getTotalPages();
+    qDebug() << apiManager->getTotalUsers() << apiManager->getTotalPages();
 //    apiManager->registerUser(name,email,phone,positionId,photoFilename);
 
     MainWindow w;

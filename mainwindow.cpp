@@ -8,7 +8,6 @@ MainWindow::MainWindow(QWidget *parent)
     connectSignalsAndSlots();
 }
 
-
 void MainWindow::setupUi() {
     ui->setupUi(this);
 
@@ -20,8 +19,8 @@ void MainWindow::setupUi() {
     QValidator *phoneValidator = new QRegularExpressionValidator(phoneRegex, this);
     ui->phoneLine->setValidator(phoneValidator);
 
-    _userTable = new UserTable();
-    _registrationForm = new RegistrationForm();
+    _userTable = std::make_unique<UserTable>();
+    _registrationForm = std::make_unique<RegistrationForm>();
 
     _userTable->loadUsers(ui);
     _registrationForm->loadRadioButtons(ui);
@@ -32,18 +31,16 @@ void MainWindow::connectSignalsAndSlots() {
     connect(ui->addUserButton, &QPushButton::clicked, this, &MainWindow::regiserUser);
 }
 
-MainWindow::~MainWindow() {
-    delete _registrationForm;
-    delete _userTable;
-    delete ui;
-}
-
 void MainWindow::loadMoreUsers() {
     _userTable->loadMoreUsers(ui);
-    ui->showMoreButton->setVisible(_userTable->getHasMorePages());
+//    ui->showMoreButton->setVisible(_userTable->getHasMorePages());
 }
 
 void MainWindow::regiserUser() {
     _registrationForm->loadRadioButtons(ui);
     _registrationForm->registerUser(ui);
+}
+
+MainWindow::~MainWindow() {
+    delete ui;
 }

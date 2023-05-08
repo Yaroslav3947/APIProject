@@ -92,7 +92,6 @@ int ApiManager::getTotalPages()  {
     return -1;
 }
 
-
 QMap<QString, int> ApiManager::getPositions() {
     QString apiUrl = _baseUrl + "positions";
     QNetworkRequest request((QUrl(apiUrl)));
@@ -176,7 +175,7 @@ User ApiManager::getUser(int id) {
     }
 }
 
-void ApiManager::registerUser(const User *user) {
+void ApiManager::registerUser(const std::unique_ptr<User> user) {
     QUrl apiUrl = _baseUrl + "users";
     QNetworkRequest request((QUrl(apiUrl)));
 
