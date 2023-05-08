@@ -13,8 +13,9 @@ class UserTable : public QWidget {
     Q_OBJECT
 public:
     UserTable(QWidget *parent = nullptr);
-    ~UserTable() = default;
+    ~UserTable();
 
+    void clearUsers();
     void loadUsers(Ui::MainWindow *ui);
     void loadMoreUsers(Ui::MainWindow *ui);
 
@@ -28,7 +29,6 @@ private:
     int _page;
     int _count;
 
-    void clearUsers();
     void loadUsersToLayout(const QList<User> &users, Ui::MainWindow *ui);
 
 };

@@ -27,12 +27,17 @@ void MainWindow::setupUi() {
     _registrationForm->loadRadioButtons(ui);
 
     ui->photoPathLine->setReadOnly(true);
+
+    ui->userAddedMainFrame->hide();
 }
 
 void MainWindow::connectSignalsAndSlots() {
     connect(ui->showMoreButton, &QPushButton::clicked, this, &MainWindow::loadMoreUsers);
     connect(ui->addUserButton, &QPushButton::clicked, this, &MainWindow::regiserUser);
     connect(ui->uploadButton, &QPushButton::clicked, this, &MainWindow::selectPhoto);
+
+    connect(ui->userListButton, &QPushButton::clicked, this, &MainWindow::listUsers);
+    connect(ui->addOneMoreButton, &QPushButton::clicked, this, &MainWindow::addOneMoreUser);
 }
 
 void MainWindow::loadMoreUsers() {
@@ -45,6 +50,18 @@ void MainWindow::regiserUser() {
 
 void MainWindow::selectPhoto() {
     _registrationForm->selectPhoto(ui);
+}
+
+void MainWindow::addOneMoreUser() {
+    _registrationForm->addOneMoreUser(ui);
+    _registrationForm = std::make_unique<RegistrationForm>();
+}
+
+void MainWindow::listUsers() {
+    ui->tabWidget->setCurrentIndex(0);
+    ui->userAddedMainFrame->hide();
+    _userTable = std::make_unique<UserTable>();
+    _userTable->loadUsers(ui);
 }
 
 MainWindow::~MainWindow() {

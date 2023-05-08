@@ -8,6 +8,10 @@ UserTable::UserTable(QWidget *parent):
     _count(USER_NUM_PER_PAGE) {
 }
 
+UserTable::~UserTable() {
+    clearUsers();
+}
+
 void UserTable::loadUsers(Ui::MainWindow *ui) {
     _userLayout = std::make_unique<QVBoxLayout>(ui->usersListFrame);
     _userLayout->setContentsMargins(0, 0, 0, 0);
@@ -19,6 +23,7 @@ void UserTable::loadUsers(Ui::MainWindow *ui) {
     bool hasMorePages = _apiManager->hasMorePages(_page);
     ui->showMoreButton->setVisible(hasMorePages);
 }
+
 void UserTable::loadUsersToLayout(const QList<User> &users, Ui::MainWindow *ui) {
     for (const auto &user: users) {
         UserWidget *userWidget = new UserWidget(user, ui->usersListFrame);

@@ -46,7 +46,7 @@ QTabBar:tab:font {
 </string>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <property name="usesScrollButtons">
      <bool>false</bool>
@@ -598,6 +598,153 @@ color: white;</string>
        </property>
       </widget>
      </widget>
+     <widget class="QFrame" name="userAddedMainFrame">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>10</y>
+        <width>640</width>
+        <height>539</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QFrame" name="TopFrame">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>640</width>
+         <height>253</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <widget class="QLabel" name="frameSuccess">
+        <property name="geometry">
+         <rect>
+          <x>268</x>
+          <y>104</y>
+          <width>104</width>
+          <height>104</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap resource="resources.qrc">:/photo/frameSuccess.png</pixmap>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QLabel" name="userAddedLabel">
+        <property name="geometry">
+         <rect>
+          <x>153</x>
+          <y>224</y>
+          <width>334</width>
+          <height>29</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Inter</family>
+          <pointsize>19</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font-family: 'Inter';
+color: black;</string>
+        </property>
+        <property name="text">
+         <string>New user successfully added</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QFrame" name="bottomFrame">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>253</y>
+         <width>640</width>
+         <height>232</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <widget class="QFrame" name="buttonsFrame">
+        <property name="geometry">
+         <rect>
+          <x>192</x>
+          <y>40</y>
+          <width>256</width>
+          <height>40</height>
+         </rect>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <widget class="QPushButton" name="userListButton">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>120</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: white;
+color: black;
+font-size: 14px;
+font-family: 'Inter';
+padding:12px, 16px, 12px, 16px;</string>
+         </property>
+         <property name="text">
+          <string>User list</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="addOneMoreButton">
+         <property name="geometry">
+          <rect>
+           <x>136</x>
+           <y>0</y>
+           <width>120</width>
+           <height>40</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: #989898;
+border-radius: 2px;
+color: white;
+font-size: 14px;
+padding: 12px, 16px, 12px, 16px;
+</string>
+         </property>
+         <property name="text">
+          <string>Add one more</string>
+         </property>
+        </widget>
+       </widget>
+      </widget>
+     </widget>
     </widget>
    </widget>
   </widget>
@@ -608,6 +755,8 @@ color: white;</string>
    <widget class="QWidget" name="dockWidgetContents"/>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

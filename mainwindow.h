@@ -31,5 +31,7 @@ private slots:
     void loadMoreUsers();
     void regiserUser();
     void selectPhoto();
+    void addOneMoreUser();
+    void listUsers();
 };
 
