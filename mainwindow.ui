@@ -46,7 +46,7 @@ QTabBar:tab:font {
 </string>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <property name="usesScrollButtons">
      <bool>false</bool>
@@ -148,7 +148,8 @@ border: 1px solid black
        <property name="styleSheet">
         <string notr="true">background: #989898;
 border-radius: 2px;
-font-family: 'Inter'</string>
+font-family: 'Inter';
+color: white;</string>
        </property>
        <property name="text">
         <string>Show More</string>
@@ -501,6 +502,54 @@ font-family: 'Inter'</string>
          <string>Photo</string>
         </property>
        </widget>
+       <widget class="QFrame" name="uploadPhotoFrame">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>27</y>
+          <width>400</width>
+          <height>48</height>
+         </rect>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <widget class="QPushButton" name="uploadButton">
+         <property name="geometry">
+          <rect>
+           <x>314</x>
+           <y>2</y>
+           <width>86</width>
+           <height>46</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Upload</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="photoPathLine">
+         <property name="geometry">
+          <rect>
+           <x>1</x>
+           <y>1</y>
+           <width>314</width>
+           <height>47</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Inter</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font-family: 'Inter'</string>
+         </property>
+        </widget>
+       </widget>
       </widget>
      </widget>
      <widget class="QFrame" name="buttonFrame">
@@ -541,7 +590,8 @@ border: 1px solid black
        <property name="styleSheet">
         <string notr="true">background: #989898;
 border-radius: 2px;
-font-family: 'Inter'</string>
+font-family: 'Inter';
+color: white;</string>
        </property>
        <property name="text">
         <string>Add user</string>

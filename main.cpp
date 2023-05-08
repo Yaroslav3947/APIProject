@@ -3,13 +3,15 @@
 #include <ApiManager.h>
 #include <mainwindow.h>
 
-
+void callBack(bool success, QString message) {
+    qDebug() << success << message;
+}
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
 
     QString name = "John Doe";
-    QString email = "johndoe@example.com";
-    QString phone = "+380955388485";
+    QString email = "joiwie@example.com";
+    QString phone = "+380985588405";
     QString position = "Security";
     QString photoFilename = "C:/Users/Yaroslav/Desktop/motobike.jpg";
 
@@ -17,8 +19,7 @@ int main(int argc, char *argv[]) {
 
     ApiManager *apiManager = new ApiManager;
 //    qDebug() << apiManager->getTotalUsers() << apiManager->getTotalPages();
-    apiManager->registerUser(user.get());
-//    qDebug() << apiManager->getToken() << apiManager->getToken() << apiManager->getToken();
+//    apiManager->registerUser(user.get(), callBack);
 
     MainWindow w;
     w.show();
@@ -27,5 +28,5 @@ int main(int argc, char *argv[]) {
 
     return a.exec();
 
-        delete apiManager;
+    delete apiManager;
 }

@@ -32,7 +32,8 @@ public:
     QList<User> getUsers(const int &page, const int &count);
 
     // For post Api
-    void registerUser(const User *user);
+//    void registerUser(const User *user);
+    void registerUser(const User *user, std::function<void(bool success, QString message)> callback);
 
 private:
 

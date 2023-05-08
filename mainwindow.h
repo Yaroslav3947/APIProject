@@ -8,6 +8,8 @@
 #include "ui_mainwindow.h"
 #include "RegistrationForm.h"
 
+#include "ui_mainwindow.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -28,5 +30,6 @@ private:
 private slots:
     void loadMoreUsers();
     void regiserUser();
+    void selectPhoto();
 };
 
