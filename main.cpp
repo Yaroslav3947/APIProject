@@ -10,20 +10,22 @@ int main(int argc, char *argv[]) {
     QString name = "John Doe";
     QString email = "johndoe@example.com";
     QString phone = "+380955388485";
-    int positionId = 3;
-    QString photoFilename = "C:\\Users\\Yaroslav\\Desktop\\motobike.jpg";
+    QString position = "Security";
+    QString photoFilename = "C:/Users/Yaroslav/Desktop/motobike.jpg";
 
-
-
+    std::unique_ptr<User> user = std::make_unique<User>(User{name, email, phone, position, photoFilename});
 
     ApiManager *apiManager = new ApiManager;
-    qDebug() << apiManager->getTotalUsers() << apiManager->getTotalPages();
-//    apiManager->registerUser(name,email,phone,positionId,photoFilename);
+//    qDebug() << apiManager->getTotalUsers() << apiManager->getTotalPages();
+    apiManager->registerUser(user.get());
+//    qDebug() << apiManager->getToken() << apiManager->getToken() << apiManager->getToken();
 
     MainWindow w;
     w.show();
 
+
+
     return a.exec();
 
-    delete apiManager;
+        delete apiManager;
 }

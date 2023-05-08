@@ -31,7 +31,7 @@ void RegistrationForm::registerUser(Ui::MainWindow *ui) {
     _user->setPhoneNumber(ui->phoneLine->text());
 //    _user->setPhotoUrl(ui->photoLine->text());
 
-    _apiManager->registerUser(getUser());
+    _apiManager->registerUser(getUser().get());
     qDebug() << getUser()->getName()
              << getUser()->getEmail()
              << getUser()->getPhoneNumber()

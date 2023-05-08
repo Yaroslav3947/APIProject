@@ -178,9 +178,101 @@ User ApiManager::getUser(const int &id) {
     }
 }
 
-void ApiManager::registerUser(const std::unique_ptr<User> user) {
+//void ApiManager::registerUser(const User *user) {
+//    const QUrl apiUrl = _baseUrl + "users";
+//    QNetworkRequest request((QUrl(apiUrl)));
+
+//    // Get token and add to request headers
+//    QString token = getToken();
+//    request.setRawHeader("Token", token.toUtf8());
+
+//    // create request using user information
+//    QHttpMultiPart *multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
+
+
+//    QHttpPart namePart;
+//    namePart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"name\""));
+//    namePart.setBody(user->getName().toUtf8());
+
+//    QHttpPart emailPart;
+//    emailPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"email\""));
+//    emailPart.setBody(user->getEmail().toUtf8());
+
+//    QHttpPart phonePart;
+//    phonePart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"phone\""));
+//    phonePart.setBody(user->getPhoneNumber().toUtf8());
+
+//    QHttpPart positionIdPart;
+//    int position = getPositions().value(user->getPosition());
+//    positionIdPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"position_id\""));
+//    positionIdPart.setBody(QString::number(position).toUtf8());
+
+//    QFile *file = new QFile(user->getPhotoUrl());
+//    file->open(QIODevice::ReadOnly);
+
+//    QHttpPart photoPart;
+//    photoPart.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("image/jpeg"));
+//    photoPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"photo\"; filename=\"" + file->fileName() + "\""));
+//    photoPart.setBodyDevice(file);
+//    file->setParent(multiPart); // delete later using multiPart
+
+//    multiPart->append(namePart);
+//    multiPart->append(emailPart);
+//    multiPart->append(phonePart);
+//    multiPart->append(positionIdPart);
+//    multiPart->append(photoPart);
+
+//    // send request
+//    QNetworkReply* reply = _networkAccessManager.post(request, multiPart);
+//    multiPart->setParent(reply); // delete using the reply
+
+//    QEventLoop loop;
+//    QObject::connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+//    loop.exec();
+
+//    // parse error response
+//    QString response1 = QString::fromUtf8(reply->readAll());
+//    QJsonDocument json1 = QJsonDocument::fromJson(response1.toUtf8());
+//    QString message = json1.object().value("message").toString();
+
+//    if (reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() == 200) {
+//        qDebug() << "Registration successful:" << message;
+//    } else if (reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() == 401) {
+//        qDebug() << "Token expired:" << message;
+//    } else if (reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() == 409) {
+//        qDebug() << "Registration failed:" << message << "- User with this phone or email already exists";
+////        QMessage::Box(message)
+
+//    } else {
+//        qDebug() << "Unknown response:" << response1;
+//    }
+
+//    if (reply->error() != QNetworkReply::NoError) {
+//        qDebug() << "Error:" << reply->errorString();
+//        return;
+//    }
+
+//    // parse response
+//    QString response = QString::fromUtf8(reply->readAll());
+//    QJsonDocument json = QJsonDocument::fromJson(response.toUtf8());
+//    qDebug() << "Message" << json.object().value("message").toString();
+
+//    if (!json.isObject() || !json.object().value("success").toBool()) {
+//        qDebug() << "Registration failed:" << response;
+//        return;
+//    }
+
+//    qDebug() << "Registration successful:" << response;
+
+//}
+
+void ApiManager::registerUser(const User *user) {
     const QUrl apiUrl = _baseUrl + "users";
     QNetworkRequest request((QUrl(apiUrl)));
+
+    // Get token and add to request headers
+    QString token = getToken();
+    request.setRawHeader("Token", token.toUtf8());
 
     // create request using user information
     QHttpMultiPart *multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
@@ -217,10 +309,6 @@ void ApiManager::registerUser(const std::unique_ptr<User> user) {
     multiPart->append(positionIdPart);
     multiPart->append(photoPart);
 
-    // get token and add to request headers
-    QString token = this->getToken();
-    request.setRawHeader("Authorization", QString("Bearer %1").arg(token).toUtf8());
-
     // send request
     QNetworkReply* reply = _networkAccessManager.post(request, multiPart);
     multiPart->setParent(reply); // delete using the reply
@@ -230,38 +318,42 @@ void ApiManager::registerUser(const std::unique_ptr<User> user) {
     loop.exec();
 
     // parse error response
-    QString response1 = QString::fromUtf8(reply->readAll());
-    QJsonDocument json1 = QJsonDocument::fromJson(response1.toUtf8());
-    QString message = json1.object().value("message").toString();
+    if (reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() != 200) {
+        QString response = QString::fromUtf8(reply->readAll());
+        QJsonDocument json = QJsonDocument::fromJson(response.toUtf8());
+        QString message = json.object().value("message").toString();
 
-    if (reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() == 200) {
-        qDebug() << "Registration successful:" << message;
-    } else if (reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() == 401) {
-        qDebug() << "Token expired:" << message;
-    } else if (reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() == 409) {
-        qDebug() << "Registration failed:" << message << "- User with this phone or email already exists";
-
-    } else {
-        qDebug() << "Unknown response:" << response1;
-    }
-
-    if (reply->error() != QNetworkReply::NoError) {
-        qDebug() << "Error:" << reply->errorString();
+        if (reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() == 401) {
+            qDebug() << "Token expired:" << message;
+            QMessageBox::critical(nullptr, "Error", "Token expired");
+        } else if (reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() == 409) {
+            qDebug() << "Registration failed:" << message << "- User with this phone or email already exists";
+            QMessageBox::critical(nullptr, "Error", "User with this phone or email already exists");
+        } else if (reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() == 422) {
+            qDebug() << "Registration failed:" << message;
+            QJsonObject fails = json.object().value("fails").toObject();
+            QString error_message = "Validation failed:\n";
+            for (auto fail = fails.begin(); fail != fails.end(); ++fail) {
+                error_message += fail.key() + ": ";
+                QJsonArray errors = fail.value().toArray();
+                for (auto error = errors.begin(); error != errors.end(); ++error) {
+                    error_message += error->toString() + "\n";
+                }
+            }
+            QMessageBox::critical(nullptr, "Error", error_message);
+        } else {
+            qDebug() << "Unknown response:" << response;
+            QMessageBox::critical(nullptr, "Error", "Unknown response from server");
+        }
         return;
     }
 
-    // parse response
+    // successful registration
     QString response = QString::fromUtf8(reply->readAll());
     QJsonDocument json = QJsonDocument::fromJson(response.toUtf8());
-    qDebug() << "Message" << json.object().value("message").toString();
-
-    if (!json.isObject() || !json.object().value("success").toBool()) {
-        qDebug() << "Registration failed:" << response;
-        return;
-    }
-
-    qDebug() << "Registration successful:" << response;
-
+    QString message = json.object().value("message").toString();
+    qDebug() << "Registration successful:" << message;
+    QMessageBox::information(nullptr, "Success", message);
 }
 
 QString ApiManager::getToken() {

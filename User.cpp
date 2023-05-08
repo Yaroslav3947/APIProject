@@ -14,6 +14,14 @@ User::User(int id,
     _phoneNumber(phoneNumber) {
 }
 
+User::User(const QString &name, const QString &email, const QString &phoneNumber, QString &position, const QString &photoUrl):
+    _name(name),
+    _email(email),
+    _position(position),
+    _photoUrl(photoUrl),
+    _phoneNumber(phoneNumber) {
+}
+
 int User::getId() const {
     return _id;
 }

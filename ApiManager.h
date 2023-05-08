@@ -8,6 +8,7 @@
 #include <QHttpPart>
 #include <QJsonArray>
 #include <QEventLoop>
+#include <QMessageBox>
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QNetworkReply>
@@ -31,7 +32,7 @@ public:
     QList<User> getUsers(const int &page, const int &count);
 
     // For post Api
-    void registerUser(const std::unique_ptr<User> user);
+    void registerUser(const User *user);
 
 private:
 
