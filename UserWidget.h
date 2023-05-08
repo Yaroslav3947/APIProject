@@ -4,13 +4,15 @@
 #include <QWidget>
 #include <QLabel>
 #include <QVBoxLayout>
-
+#include "QEventLoop"
+#include "QNetworkReply"
+#include <QNetworkAccessManager>
 
 class UserWidget : public QWidget {
     Q_OBJECT
 public:
     UserWidget(const User &user, QWidget *parent = nullptr);
-    ~UserWidget();
+//    ~UserWidget(); // why do I have problem here?
 
 private:
     QLabel *_photoLabel;
@@ -23,5 +25,6 @@ private:
     QVBoxLayout *_userInfoLayout;
     QHBoxLayout *_userFrameLayout;
 
+    void setPhoto(const QString &photoUrl);
 
 };

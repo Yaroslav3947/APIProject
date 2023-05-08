@@ -1,5 +1,25 @@
 #include "UserWidget.h"
 
+void UserWidget::setPhoto(const QString &photoUrl) {
+    QPixmap userPhoto;
+    QNetworkAccessManager networkManager(this);
+    QNetworkReply *reply = networkManager.get(QNetworkRequest(photoUrl));
+
+    QEventLoop loop;
+    QObject::connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+    loop.exec();
+
+    if (reply->error() == QNetworkReply::NoError) {
+        userPhoto.loadFromData(reply->readAll());
+        _photoLabel->setPixmap(userPhoto.scaled(_photoLabel->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    } else {
+        QPixmap defaultPhoto(":/photo/noPhoto.jfif");
+        _photoLabel->setPixmap(defaultPhoto.scaled(_photoLabel->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    }
+
+    reply->deleteLater();
+}
+
 UserWidget::UserWidget(const User &user, QWidget *parent) : QWidget(parent) {
 
     _resultLayout = new QHBoxLayout(this);
@@ -7,10 +27,7 @@ UserWidget::UserWidget(const User &user, QWidget *parent) : QWidget(parent) {
     _photoLabel = new QLabel(this);
     _photoLabel->setFixedSize(84, 84);
 
-    // TODO: Load photo from API
-    QPixmap userPhoto("C:/Users/Yaroslav/Desktop/photo.png");
-    _photoLabel->setPixmap(userPhoto.scaled(_photoLabel->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
-    _resultLayout->addWidget(_photoLabel);
+    setPhoto(user.getPhotoUrl());
 
     _userInfoLayout = new QVBoxLayout();
 
@@ -34,11 +51,8 @@ UserWidget::UserWidget(const User &user, QWidget *parent) : QWidget(parent) {
     _phoneNumberLabel->setStyleSheet("color: #6B6B6B; font-family: 'Inter'; font-size: 12px;");
     _userInfoLayout->addWidget(_phoneNumberLabel);
 
-
+    _resultLayout->addWidget(_photoLabel);
     _resultLayout->addLayout(_userInfoLayout);
+
 }
 
-UserWidget::~UserWidget() {
-    delete _userInfoLayout;
-    delete _userFrameLayout;
-}

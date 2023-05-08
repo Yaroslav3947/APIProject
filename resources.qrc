@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/photo">
+        <file>noPhoto.jfif</file>
+    </qresource>
+</RCC>
