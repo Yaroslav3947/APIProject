@@ -1,18 +1,18 @@
 #pragma once
 
-#include <User.h>
 #include <QWidget>
 #include <QLabel>
 #include <QVBoxLayout>
-#include "QEventLoop"
-#include "QNetworkReply"
+#include <QEventLoop>
+#include <QNetworkReply>
 #include <QNetworkAccessManager>
+
+#include <User.h>
 
 class UserWidget : public QWidget {
     Q_OBJECT
 public:
     UserWidget(const User &user, QWidget *parent = nullptr);
-//    ~UserWidget(); // why do I have problem here?
 
 private:
     QLabel *_photoLabel;
@@ -21,10 +21,9 @@ private:
     QLabel *_positionLabel;
     QLabel *_phoneNumberLabel;
 
-    QHBoxLayout *_resultLayout;
-    QVBoxLayout *_userInfoLayout;
-    QHBoxLayout *_userFrameLayout;
+    std::unique_ptr<QHBoxLayout> _resultLayout;
+    std::unique_ptr<QVBoxLayout> _userInfoLayout;
+    std::unique_ptr<QHBoxLayout> _userFrameLayout;
 
     void setPhoto(const QString &photoUrl);
-
 };

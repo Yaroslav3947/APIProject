@@ -20,39 +20,42 @@ void UserWidget::setPhoto(const QString &photoUrl) {
     reply->deleteLater();
 }
 
-UserWidget::UserWidget(const User &user, QWidget *parent) : QWidget(parent) {
+UserWidget::UserWidget(const User &user, QWidget *parent) :
+    QWidget(parent),
+    _resultLayout(std::make_unique<QHBoxLayout>(this)),
+    _userInfoLayout(std::make_unique<QVBoxLayout>()) {
 
-    _resultLayout = new QHBoxLayout(this);
+    const QString styleSheet = "color: #6B6B6B; font-family: 'Inter'; font-size: 12px;";
+
+    const QString nameStyleSheet = "color: #000000; font-size: 18px;";
 
     _photoLabel = new QLabel(this);
     _photoLabel->setFixedSize(84, 84);
 
     setPhoto(user.getPhotoUrl());
 
-    _userInfoLayout = new QVBoxLayout();
-
     _nameLabel = new QLabel(this);
     _nameLabel->setText(user.getName());
-    _nameLabel->setStyleSheet("color: #000000; font-size: 18px;");
+    _nameLabel->setStyleSheet(nameStyleSheet);
     _userInfoLayout->addWidget(_nameLabel);
 
     _emailLabel = new QLabel(this);
     _emailLabel->setText(user.getEmail());
-    _emailLabel->setStyleSheet("color: #6B6B6B;font-family: 'Inter'; font-size: 12px;");
+    _emailLabel->setStyleSheet(styleSheet);
     _userInfoLayout->addWidget(_emailLabel);
 
     _positionLabel = new QLabel(this);
     _positionLabel->setText(user.getPosition());
-    _positionLabel->setStyleSheet("color: #6B6B6B;font-family: 'Inter'; font-size: 12px;");
+    _positionLabel->setStyleSheet(styleSheet);
     _userInfoLayout->addWidget(_positionLabel);
 
     _phoneNumberLabel = new QLabel(this);
     _phoneNumberLabel->setText(user.getPhoneNumber());
-    _phoneNumberLabel->setStyleSheet("color: #6B6B6B; font-family: 'Inter'; font-size: 12px;");
+    _phoneNumberLabel->setStyleSheet(styleSheet);
     _userInfoLayout->addWidget(_phoneNumberLabel);
 
     _resultLayout->addWidget(_photoLabel);
-    _resultLayout->addLayout(_userInfoLayout);
+    _resultLayout->addLayout(_userInfoLayout.get());
 
 }
 
