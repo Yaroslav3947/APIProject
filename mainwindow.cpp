@@ -12,6 +12,8 @@ void MainWindow::setupUi() {
     ui->setupUi(this);
     setFixedSize(1024, 1129);
 
+    _movie = new QMovie(LOADING_GIF_PATH);
+
     ui->nameLine->setPlaceholderText("Name");
     ui->emailLine->setPlaceholderText("Email");
     ui->phoneLine->setPlaceholderText("Phone");
@@ -51,11 +53,29 @@ void MainWindow::connectSignalsAndSlots() {
 }
 
 void MainWindow::loadMoreUsers() {
-    ui->showMoreButton->setDisabled(true);
-    QTimer::singleShot(1000, [this]() {
-        ui->showMoreButton->setDisabled(false);
+    ui->showMoreButton->hide();
+
+    QLabel *loadingLabel = showLoadingAnimation();
+    QTimer::singleShot(1000, this, [this, loadingLabel]() {
+        _userTable->loadMoreUsers(ui);
+        hideLoadingAnimation(loadingLabel);
+        ui->showMoreButton->show();
     });
-    _userTable->loadMoreUsers(ui);
+}
+
+QLabel *MainWindow::showLoadingAnimation() {
+    QLabel *loadingLabel = new QLabel;
+    loadingLabel->setMovie(_movie);
+    _movie->setScaledSize(QSize(100, 100));
+    _movie->start();
+    ui->loadingLayout->addWidget(loadingLabel, 0, 0, 1, 1, Qt::AlignCenter);
+    return loadingLabel;
+}
+
+void MainWindow::hideLoadingAnimation(QLabel *loadingLabel) {
+    loadingLabel->setMovie(nullptr);
+    ui->loadingLayout->removeWidget(loadingLabel);
+    delete loadingLabel;
 }
 
 void MainWindow::regiserUser() {
@@ -89,15 +109,28 @@ void MainWindow::addOneMoreUser() {
 }
 
 void MainWindow::listUsers() {
-    ui->tabWidget->setTabEnabled(0, true);
-    _registrationForm->listUsers(ui);
+    ui->showMoreButton->hide();
 
-    resetInputForm(ui);
+    QLabel *loadingLabel = showLoadingAnimation();
 
-    _userTable = std::make_unique<UserTable>();
-    _userTable->loadUsers(ui);
+    ui->loadingLayout->addWidget(loadingLabel, 0, 0, 1, 1, Qt::AlignCenter);
+
+    // Switch to the first tab and load the user data after a 1 second delay
+    QTimer::singleShot(1000, this, [this, loadingLabel]() {
+        ui->tabWidget->setCurrentIndex(0);
+        ui->tabWidget->setTabEnabled(0, true);
+
+        resetInputForm(ui);
+
+        _userTable = std::make_unique<UserTable>();
+        _userTable->loadUsers(ui);
+
+        hideLoadingAnimation(loadingLabel);
+        ui->userListButton->show();
+    });
 }
 
 MainWindow::~MainWindow() {
+    delete _movie;
     delete ui;
 }

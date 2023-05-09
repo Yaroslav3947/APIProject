@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QMovie>
 #include <QTimer>
 #include <QMainWindow>
 #include <QRegularExpression>
@@ -22,14 +23,20 @@ public:
     ~MainWindow();
 
 private:
+    QMovie *_movie;
     Ui::MainWindow *ui;
+
     std::unique_ptr<UserTable> _userTable;
     std::unique_ptr<RegistrationForm> _registrationForm;
+
+    const QString LOADING_GIF_PATH = ":/photo/loading.gif";
 
     void setupUi();
     void connectSignalsAndSlots();
     void clearInputForm(Ui::MainWindow *ui);
     void resetInputForm(Ui::MainWindow *ui);
+    QLabel *showLoadingAnimation();
+    void hideLoadingAnimation(QLabel *loadingLabel);
 
 private slots:
     void loadMoreUsers();

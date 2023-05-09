@@ -2,5 +2,6 @@
     <qresource prefix="/photo">
         <file>noPhoto.jfif</file>
         <file>frameSuccess.png</file>
+        <file>loading.gif</file>
     </qresource>
 </RCC>

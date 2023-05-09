@@ -52,7 +52,7 @@ QTabBar:tab:font {
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <property name="usesScrollButtons">
      <bool>false</bool>
@@ -164,6 +164,19 @@ QPushButton:hover {
         <string>Show More</string>
        </property>
       </widget>
+      <widget class="QWidget" name="gridLayoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>270</x>
+         <y>10</y>
+         <width>81</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="loadingLayout"/>
+      </widget>
+      <zorder>gridLayoutWidget</zorder>
+      <zorder>showMoreButton</zorder>
      </widget>
     </widget>
     <widget class="QWidget" name="addUsersTab">
