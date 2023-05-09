@@ -21,7 +21,7 @@ class ApiManager : public QObject {
 public:
     ApiManager(QObject *parent = nullptr);
 
-    bool hasMorePages(const int &page);
+    bool hasMorePages(const int &page, const double usersPerPage = 6.0);
 
     // For get Api
     QString getToken();

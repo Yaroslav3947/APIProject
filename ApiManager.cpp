@@ -265,8 +265,6 @@ void ApiManager::registerUser(const User *user, std::function<void(bool success,
     }
 }
 
-
-
 QString ApiManager::getToken() {
     const QString apiUrl = _baseUrl + "token";
     QNetworkRequest request((QUrl(apiUrl)));
@@ -305,6 +303,6 @@ QString ApiManager::getToken() {
     }
 }
 
-bool ApiManager::hasMorePages(const int &page) {
-    return this->getTotalPages() - 1 > page;
+bool ApiManager::hasMorePages(const int &page, const double usersPerPage) {
+    return std::ceil(getTotalUsers() / usersPerPage > page);
 }

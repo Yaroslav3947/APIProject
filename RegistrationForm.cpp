@@ -3,7 +3,11 @@
 RegistrationForm::RegistrationForm() {
     _apiManager = std::make_unique<ApiManager>();
     _positions = _apiManager->getPositions();
-    _user = std::make_unique<User>();
+    _user = std::make_shared<User>();
+}
+
+RegistrationForm::~RegistrationForm() {
+    delete _radioButtonsLayout;
 }
 
 void RegistrationForm::selectPhoto(Ui::MainWindow *ui) {
@@ -30,6 +34,7 @@ void RegistrationForm::onRadioButtonClicked() {
     if (radioButton) {
         QString position = radioButton->text();
         _user->setPosition(position);
+
     }
 }
 
@@ -50,7 +55,6 @@ void RegistrationForm::registerUser(Ui::MainWindow *ui) {
 
         _apiManager->registerUser(getUser().get(), [&](bool success, QString message) {
             if (success) {
-//                QMessageBox::information(ui->addUserButton, "Registration Successful", message);
                 showSuccessfulRegistraion(ui);
             } else {
                 QMessageBox::critical(ui->addUserButton, "Registration Failed", message);
@@ -63,18 +67,21 @@ void RegistrationForm::addOneMoreUser(Ui::MainWindow *ui) {
     ui->userAddedMainFrame->hide();
     ui->formAddUser->show();
     ui->buttonFrame->show();
-    ////TODO: clear all fields
 }
 
 void RegistrationForm::listUsers(Ui::MainWindow *ui) {
-
+    ui->tabWidget->setCurrentIndex(0);
+    ui->userAddedMainFrame->hide();
+    ui->formAddUser->show();
+    ui->buttonFrame->show();
 }
 
-std::unique_ptr<User>RegistrationForm::getUser() {
-    return std::move(_user);
+std::shared_ptr<User>RegistrationForm::getUser() {
+    return _user;
 }
 
 void RegistrationForm::showSuccessfulRegistraion(Ui::MainWindow *ui) {
+    ui->tabWidget->setTabEnabled(0, false);
     ui->userAddedMainFrame->move(0,0);
     ui->userAddedMainFrame->show();
     ui->formAddUser->hide();

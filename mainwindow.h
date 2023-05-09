@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QTimer>
 #include <QMainWindow>
 #include <QRegularExpression>
 #include <QRegularExpressionValidator>
@@ -27,6 +28,9 @@ private:
 
     void setupUi();
     void connectSignalsAndSlots();
+    void clearInputForm(Ui::MainWindow *ui);
+    void resetInputForm(Ui::MainWindow *ui);
+
 private slots:
     void loadMoreUsers();
     void regiserUser();

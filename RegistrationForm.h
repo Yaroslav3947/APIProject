@@ -14,16 +14,17 @@
 class RegistrationForm : public QObject {
 public:
     RegistrationForm();
+    ~RegistrationForm();
     void selectPhoto(Ui::MainWindow *ui);
     void loadRadioButtons(Ui::MainWindow *ui);
     void registerUser(Ui::MainWindow *ui);
     void addOneMoreUser(Ui::MainWindow *ui);
     void listUsers(Ui::MainWindow *ui);
 
-    std::unique_ptr<User> getUser();
+    std::shared_ptr<User> getUser();
 
 private:
-    std::unique_ptr<User> _user;
+    std::shared_ptr<User> _user;
     QVBoxLayout *_radioButtonsLayout;
     std::unique_ptr<ApiManager> _apiManager;
     QMap<QString, int> _positions;

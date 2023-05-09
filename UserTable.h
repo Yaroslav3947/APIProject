@@ -21,13 +21,13 @@ public:
 
 private:
     const static int START_PAGE = 1;
-    const static int USER_NUM_PER_PAGE = 6;
+    constexpr const static double USER_NUM_PER_PAGE = 6;
 
     std::unique_ptr<ApiManager> _apiManager;
     std::unique_ptr<QVBoxLayout> _userLayout;
 
     int _page;
-    int _count;
+    double _count;
 
     void loadUsersToLayout(const QList<User> &users, Ui::MainWindow *ui);
 

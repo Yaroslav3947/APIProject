@@ -16,7 +16,7 @@ void MainWindow::setupUi() {
     ui->phoneLine->setPlaceholderText("Phone");
     ui->photoPathLine->setPlaceholderText("Upload photo");
 
-    QRegularExpression phoneRegex("^\\+?380[0-9]{9}$");
+    QRegularExpression phoneRegex("^\\+380[0-9]{9}$");
     QValidator *phoneValidator = new QRegularExpressionValidator(phoneRegex, this);
     ui->phoneLine->setValidator(phoneValidator);
 
@@ -31,6 +31,15 @@ void MainWindow::setupUi() {
     ui->userAddedMainFrame->hide();
 }
 
+void MainWindow::resetInputForm(Ui::MainWindow *ui) {
+    clearInputForm(ui);
+
+    _registrationForm.reset(new RegistrationForm());
+    _registrationForm->loadRadioButtons(ui);
+
+    _registrationForm->addOneMoreUser(ui);
+}
+
 void MainWindow::connectSignalsAndSlots() {
     connect(ui->showMoreButton, &QPushButton::clicked, this, &MainWindow::loadMoreUsers);
     connect(ui->addUserButton, &QPushButton::clicked, this, &MainWindow::regiserUser);
@@ -41,6 +50,10 @@ void MainWindow::connectSignalsAndSlots() {
 }
 
 void MainWindow::loadMoreUsers() {
+    ui->showMoreButton->setDisabled(true);
+    QTimer::singleShot(1000, [this]() {
+        ui->showMoreButton->setDisabled(false);
+    });
     _userTable->loadMoreUsers(ui);
 }
 
@@ -52,14 +65,34 @@ void MainWindow::selectPhoto() {
     _registrationForm->selectPhoto(ui);
 }
 
+void MainWindow::clearInputForm(Ui::MainWindow *ui) {
+    ui->nameLine->clear();
+    ui->emailLine->clear();
+    ui->phoneLine->clear();
+    ui->photoPathLine->clear();
+
+    // Reset radio buttons
+    QList<QRadioButton*> radioButtons = ui->radioButtonFrame->findChildren<QRadioButton*>();
+    for (QRadioButton *rb : radioButtons) {
+        rb->setChecked(false);
+    }
+}
+
 void MainWindow::addOneMoreUser() {
-    _registrationForm->addOneMoreUser(ui);
-    _registrationForm = std::make_unique<RegistrationForm>();
+    ui->tabWidget->setTabEnabled(0, true);
+
+    resetInputForm(ui);
+
+    _userTable = std::make_unique<UserTable>();
+    _userTable->loadUsers(ui);
 }
 
 void MainWindow::listUsers() {
-    ui->tabWidget->setCurrentIndex(0);
-    ui->userAddedMainFrame->hide();
+    ui->tabWidget->setTabEnabled(0, true);
+    _registrationForm->listUsers(ui);
+
+    resetInputForm(ui);
+
     _userTable = std::make_unique<UserTable>();
     _userTable->loadUsers(ui);
 }
