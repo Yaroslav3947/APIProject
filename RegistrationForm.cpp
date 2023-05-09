@@ -11,7 +11,10 @@ RegistrationForm::~RegistrationForm() {
 }
 
 void RegistrationForm::selectPhoto(Ui::MainWindow *ui) {
-    QString fileName = QFileDialog::getOpenFileName(ui->photoPathLine->parentWidget(), tr("Open Image"), "", tr("Image Files (*.jpeg *.jpg *.jfif)"));
+    QString fileName = QFileDialog::getOpenFileName(ui->photoPathLine->parentWidget(),
+                                                    tr("Open Image"),
+                                                    "",
+                                                    tr("Image Files (*.jpeg *.jpg )"));
     if (fileName != "") {
         ui->photoPathLine->setText(fileName);
     }
