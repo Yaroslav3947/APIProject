@@ -52,7 +52,7 @@ QTabBar:tab:font {
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <property name="usesScrollButtons">
      <bool>false</bool>
@@ -555,7 +555,7 @@ QPushButton {
           <rect>
            <x>1</x>
            <y>1</y>
-           <width>314</width>
+           <width>312</width>
            <height>47</height>
           </rect>
          </property>

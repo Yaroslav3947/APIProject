@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::setupUi() {
     ui->setupUi(this);
+    setFixedSize(1024, 1129);
 
     ui->nameLine->setPlaceholderText("Name");
     ui->emailLine->setPlaceholderText("Email");
