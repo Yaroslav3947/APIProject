@@ -10,7 +10,6 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::setupUi() {
     ui->setupUi(this);
-    setFixedSize(1024, 1129);
 
     _movie = new QMovie(LOADING_GIF_PATH);
 
@@ -53,14 +52,15 @@ void MainWindow::connectSignalsAndSlots() {
 }
 
 void MainWindow::loadMoreUsers() {
-    ui->showMoreButton->hide();
-
-    QLabel *loadingLabel = showLoadingAnimation();
-    QTimer::singleShot(1000, this, [this, loadingLabel]() {
-        _userTable->loadMoreUsers(ui);
-        hideLoadingAnimation(loadingLabel);
-        ui->showMoreButton->show();
-    });
+    if (_userTable->getHasMorePages()) {
+        ui->showMoreButton->hide();
+        QLabel *loadingLabel = showLoadingAnimation();
+        QTimer::singleShot(1000, [this, loadingLabel](){
+            _userTable->loadMoreUsers(ui);
+            hideLoadingAnimation(loadingLabel);
+            ui->showMoreButton->setVisible(_userTable->getHasMorePages());  // Show the button again if there are more pages
+        });
+    }
 }
 
 QLabel *MainWindow::showLoadingAnimation() {
@@ -109,8 +109,7 @@ void MainWindow::addOneMoreUser() {
 }
 
 void MainWindow::listUsers() {
-    ui->showMoreButton->hide();
-
+        ui->showMoreButton->hide();
     QLabel *loadingLabel = showLoadingAnimation();
 
     ui->loadingLayout->addWidget(loadingLabel, 0, 0, 1, 1, Qt::AlignCenter);
@@ -126,6 +125,7 @@ void MainWindow::listUsers() {
         _userTable->loadUsers(ui);
 
         hideLoadingAnimation(loadingLabel);
+        ui->showMoreButton->setVisible(_userTable->getHasMorePages());  // Show the button if there are more pages
         ui->userListButton->show();
     });
 }

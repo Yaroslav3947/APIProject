@@ -15,6 +15,7 @@ public:
     UserTable(QWidget *parent = nullptr);
     ~UserTable();
 
+    bool getHasMorePages() const;
     void clearUsers();
     void loadUsers(Ui::MainWindow *ui);
     void loadMoreUsers(Ui::MainWindow *ui);
@@ -28,7 +29,7 @@ private:
 
     int _page;
     double _count;
-
+    bool _hasMorePages;
     void loadUsersToLayout(const QList<User> &users, Ui::MainWindow *ui);
 
 };

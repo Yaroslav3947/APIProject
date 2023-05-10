@@ -304,5 +304,5 @@ QString ApiManager::getToken() {
 }
 
 bool ApiManager::hasMorePages(const int &page, const double usersPerPage) {
-    return std::ceil(getTotalUsers() / usersPerPage > page);
+    return std::ceil((getTotalUsers() / usersPerPage) > page);
 }

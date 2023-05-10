@@ -2,6 +2,7 @@
 
 #include <QMovie>
 #include <QTimer>
+#include <QScreen>
 #include <QMainWindow>
 #include <QRegularExpression>
 #include <QRegularExpressionValidator>
