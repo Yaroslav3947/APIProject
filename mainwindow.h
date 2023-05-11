@@ -37,6 +37,7 @@ private:
     void clearInputForm(Ui::MainWindow *ui);
     void resetInputForm(Ui::MainWindow *ui);
     QLabel *showLoadingAnimation();
+
     void hideLoadingAnimation(QLabel *loadingLabel);
 
 private slots:
