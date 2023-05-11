@@ -33,7 +33,8 @@
         <string notr="true">
 QTabWidget:tab-bar {
 font-family: 'Inter';
-alignment: center;
+alignment: left;
+width: 642;
 }
 QTabBar:tab {
 width: 319.4px;
@@ -55,7 +56,7 @@ QTabBar:tab:font {
         <enum>QTabWidget::Rounded</enum>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <property name="usesScrollButtons">
         <bool>false</bool>
@@ -215,7 +216,7 @@ QPushButton:hover {
           <rect>
            <x>0</x>
            <y>85</y>
-           <width>640</width>
+           <width>635</width>
            <height>683</height>
           </rect>
          </property>
@@ -547,10 +548,13 @@ QPushButton:hover {
             <property name="geometry">
              <rect>
               <x>314</x>
-              <y>2</y>
+              <y>0</y>
               <width>86</width>
-              <height>46</height>
+              <height>47</height>
              </rect>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
             </property>
             <property name="styleSheet">
              <string notr="true">QPushButton:hover {
@@ -559,7 +563,7 @@ QPushButton:hover {
 QPushButton {
 	border: 1px solid black;
     background-color: white;
-    border-radius: 2px;
+
 }</string>
             </property>
             <property name="text">
@@ -570,8 +574,8 @@ QPushButton {
             <property name="geometry">
              <rect>
               <x>1</x>
-              <y>1</y>
-              <width>312</width>
+              <y>0</y>
+              <width>313</width>
               <height>47</height>
              </rect>
             </property>
@@ -640,10 +644,10 @@ QPushButton:hover {
         <widget class="QFrame" name="userAddedMainFrame">
          <property name="geometry">
           <rect>
-           <x>1</x>
+           <x>0</x>
            <y>10</y>
-           <width>636</width>
-           <height>539</height>
+           <width>640</width>
+           <height>481</height>
           </rect>
          </property>
          <property name="styleSheet">
@@ -662,7 +666,7 @@ QPushButton:hover {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>635</width>
+            <width>641</width>
             <height>253</height>
            </rect>
           </property>
@@ -720,7 +724,7 @@ color: black;</string>
            <rect>
             <x>0</x>
             <y>253</y>
-            <width>635</width>
+            <width>641</width>
             <height>232</height>
            </rect>
           </property>
