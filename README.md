@@ -3,7 +3,7 @@ APITestProject is a simple Windows application written in C++ using the QT frame
 ## Installation and Execution ##
 - Download the ApiTestProject.zip file.
 - Extract the contents of the zip file to a desired location on your system.
-- Navigate to the "Executable" folder.
+- Navigate to the "ApiExecutable" folder.
 - Run ApiTestProject.exe to launch the application.
 ## Features ##
 - Register a user: Click on the "Add User" button and follow the prompts to register a user.
